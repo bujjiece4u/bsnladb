@@ -1,0 +1,9 @@
+{% if latest_bsnlsitedb_list %}
+    <ul>
+    {% for question in latest_bsnlsitedb_list %}
+        <li><a href="/polls/{{ question.id }}/">{{ question.sitename }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
