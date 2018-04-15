@@ -3,6 +3,8 @@ from django.template import loader
 from .models import bsnlsitedb
 from django.http import Http404
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from .forms import PostForm
 
 #def index(request):
 #    return HttpResponse("Welcome to BSNL site for entry form.")
@@ -22,17 +24,17 @@ def detail(request, bsnlsitedb_id):
 
 def results(request, question_id):
     question = get_object_or_404(bsnlsitedb, pk=question_id)
-    return render(request, 'polls/results.html', {'question': question})
+    return render(request, 'bsnlsite/results.html', {'question': question})
 # def results(request, bsnlsitedb_id):
 #     response = "You're looking at the results of question %s."
 #     return HttpResponse(response % bsnlsitedb_id)
 
 #...
 def entry(request, bsnlsitedb_id):
-    question = get_object_or_404(bsnlsitedb, pk=question_id)
+    question = get_object_or_404(bsnlsitedb, pk=bsnlsitedb_id)
     try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
+        selected_choice = question.sitename
+    except (KeyError, sitename.DoesNotExist):
         # Redisplay the question voting form.
         return render(request, 'bsnlsite/detail.html', {
             'question': question,
@@ -46,3 +48,17 @@ def entry(request, bsnlsitedb_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('bsnlsite:results', args=(question.id,)))
 #            return HttpResponse("You're voting on question %s." % bsnlsite_db)
+
+def post_new(request):
+    # instance = get_object_or_404(bsnlsitedb, bsnlsitedb_id=id)
+    # form = PostForm(request.POST or None, instance=instance)
+    # if form.is_valid():
+    #     form.save()
+    #     return redirect('next_view')
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = PostForm()
+    return render(request, 'bsnlsite/post_edit.html', {'form': form})

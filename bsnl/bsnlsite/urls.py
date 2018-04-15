@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 
 from . import views
 
@@ -9,5 +10,7 @@ urlpatterns = [
     # ex: /polls/5/results/
     path('<int:bsnlsitedb_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
-    path('<int:bsnlsitedb_id>/entry/', views.entry, name='entry'),    
+    path('<int:bsnlsitedb_id>/entry/', views.entry, name='entry'),
+
+    url(r'^new/$', views.post_new, name='post_new'),
 ]
