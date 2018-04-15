@@ -6,4 +6,4 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = bsnlsitedb
-        fields = ('sitename', 'btstype',)
+        fields = ('sitename', 'btstype','btsmake',)
