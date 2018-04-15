@@ -13,4 +13,5 @@ urlpatterns = [
     path('<int:bsnlsitedb_id>/entry/', views.entry, name='entry'),
 
     url(r'^new/$', views.post_new, name='post_new'),
+    url(r'^list/$', views.output_table, name='output_table'),
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 BTSTYPE_CHOICES = (
@@ -48,3 +49,8 @@ class bsnlsitedb(models.Model):
     ac4capacity         = models.CharField(max_length=4,choices=ACCAPACITY_CHOICES,default='1T')
     ac5make         = models.CharField(max_length=200)
     ac5capacity         = models.CharField(max_length=4,choices=ACCAPACITY_CHOICES,default='1T')
+
+
+# class My_Model_Form(ModelForm):
+#            class Meta:
+#                model = bsnlsitedb

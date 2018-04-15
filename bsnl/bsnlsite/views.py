@@ -5,6 +5,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render
 from .forms import PostForm
+from django.shortcuts import render_to_response
 
 #def index(request):
 #    return HttpResponse("Welcome to BSNL site for entry form.")
@@ -62,3 +63,7 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'bsnlsite/post_edit.html', {'form': form})
+
+def output_table(request):
+    output = bsnlsitedb.objects.all()
+    return render_to_response('bsnlsite/outputtable.html', {'output': output})
