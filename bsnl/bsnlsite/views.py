@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import bsnlsitedb
+from django.http import Http404
+from django.shortcuts import render
 
 #def index(request):
 #    return HttpResponse("Welcome to BSNL site for entry form.")
