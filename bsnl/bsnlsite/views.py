@@ -20,9 +20,29 @@ def index(request):
 def detail(request, bsnlsitedb_id):
     return HttpResponse("You're looking at question %s." % bsnlsitedb_id)
 
-def results(request, bsnlsitedb_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % bsnlsitedb_id)
+def results(request, question_id):
+    question = get_object_or_404(bsnlsitedb, pk=question_id)
+    return render(request, 'polls/results.html', {'question': question})
+# def results(request, bsnlsitedb_id):
+#     response = "You're looking at the results of question %s."
+#     return HttpResponse(response % bsnlsitedb_id)
 
+#...
 def entry(request, bsnlsitedb_id):
-    return HttpResponse("You're voting on question %s." % bsnlsite_db)
+    question = get_object_or_404(bsnlsitedb, pk=question_id)
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, 'bsnlsite/detail.html', {
+            'question': question,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('bsnlsite:results', args=(question.id,)))
+#            return HttpResponse("You're voting on question %s." % bsnlsite_db)
