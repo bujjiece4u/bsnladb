@@ -21,7 +21,7 @@ def index(request):
 
 
 def detail(request, bsnlsitedb_id):
-    return HttpResponse("You're looking at question %s." % bsnlsitedb_id)
+    return HttpResponse("You're looking at database %s." % bsnlsitedb_id)
 
 def results(request, question_id):
     question = get_object_or_404(bsnlsitedb, pk=question_id)

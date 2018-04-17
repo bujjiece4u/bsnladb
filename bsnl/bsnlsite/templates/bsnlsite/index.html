@@ -1,9 +1,19 @@
 {% if latest_bsnlsitedb_list %}
     <ul>
     {% for question in latest_bsnlsitedb_list %}
-        <li><a href="/bsnlsite/{{ question.id }}/">{{ question.sitename }}</a></li>
-    {% endfor %}
+
+    <!-- <table cellpadding="2"><tr><td bgcolor="blue">
+    <table border="1" frame="void" cellpadding="10" bgcolor="white"> -->
+    <table border="1">
+    <tr>
+        <td><li><a href="/bsnlsite/{{ question.id }}/">{{ question.sitename }}</a></li></td>
+        <td>{{ question.btstype }}</td>
+        <td>{{ question.btsmake }}</td>
+    </tr>
+  </table>
+  </table>
+  {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>No data is available in BSNL database.</p>
 {% endif %}
