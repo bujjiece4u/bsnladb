@@ -1,15 +1,22 @@
 from django.http import HttpResponse
 from django.template import loader
+from haystack import indexes
 from .models import bsnlsitedb
 from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render
 from .forms import PostForm
 from django.shortcuts import render_to_response
+import operator
+from django.views.generic import ListView
+from django.views.generic.list import BaseListView
+
+from django.db.models import Q
+# from .models import BlogSearchListView
 
 #def index(request):
 #    return HttpResponse("Welcome to BSNL site for entry form.")
-def index(request):
+def index(request,search_term=None):
     latest_bsnlsitedb_list = bsnlsitedb.objects.all()
     template = loader.get_template('bsnlsite/index.html')
     context = {
@@ -67,3 +74,45 @@ def post_new(request):
 def output_table(request):
     output = bsnlsitedb.objects.all()
     return render_to_response('bsnlsite/outputtable.html', {'output': output})
+
+# class BlogSearchListView(BlogListView):
+#     """
+#     Display a Blog List page filtered by the search query.
+#     """
+#     paginate_by = 10
+
+
+
+def get_queryset(self):
+        # results = bsnlsitedb.objects.filter(Q(sitename__icontains=your_search_query) | Q(intro__icontains=your_search_query) | Q(content__icontains=your_search_query))
+
+        result = super(BlogSearchListView, self).get_queryset()
+
+        query = self.request.GET.get('q')
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (bsnlsitedb(sitename__icontains=q) for q in query_list)) |
+                reduce(operator.and_,
+                       (bsnlsitedb(btstype__icontains=q) for q in query_list))
+            )
+
+        return render(result, 'bsnlsite/search.html')
+
+    # return render(request, 'bsnlsite/post_edit.html', {'form': form})
+
+
+
+
+
+    # def index_queryset(self, using=None):
+    #     """Used when the entire index for model is updated."""
+    #     return self.get_model().objects.filter(pub_date__lte=datetime.datetime.now())
+
+def search(request):
+    form = ItemSearchForm(request.GET)
+    results = form.search()
+    return render(request, 'search/search.html', {
+        'items': results
+    })

@@ -1,4 +1,5 @@
 from django import forms
+from haystack.forms import SearchForm
 
 from .models import bsnlsitedb
 
@@ -22,3 +23,8 @@ class PostForm(forms.ModelForm):
                   'ac4make',
                   'ac4capacity',
                   )
+
+class ItemSearchForm(SearchForm):
+    def search(self):
+        sqs = super(ItemSearchForm, self).search().models(bsnlsitedb)
+        return sqs

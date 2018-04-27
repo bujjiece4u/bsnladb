@@ -1,5 +1,6 @@
 from django.db import models
 from django.forms import ModelForm
+from haystack import indexes
 
 # Create your models here.
 BTSTYPE_CHOICES = (
@@ -51,6 +52,19 @@ class bsnlsitedb(models.Model):
     ac5capacity         = models.CharField(max_length=4,choices=ACCAPACITY_CHOICES,default='1T')
 
 
+class ItemIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    sitename = indexes.CharField(model_attr='sitename')
+    btsmake = indexes.CharField(model_attr='btsmake')
+
 # class My_Model_Form(ModelForm):
 #            class Meta:
 #                model = bsnlsitedb
+
+class bsnlsitedbIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    sitename = indexes.CharField(model_attr='sitename')
+    btstype = indexes.CharField(model_attr='btstype')
+
+    def get_model(self):
+        return bsnlsitedb

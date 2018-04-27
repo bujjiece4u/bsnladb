@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from django.conf.urls import url
 
 from . import views
@@ -14,4 +14,6 @@ urlpatterns = [
 
     url(r'^new/$', views.post_new, name='post_new'),
     url(r'^list/$', views.output_table, name='output_table'),
+    url(r'^search/', include('haystack.urls')),
+    # url(r'^search/(?P<search_term>[\w-]+)/$', views.index, name='index'),
 ]
