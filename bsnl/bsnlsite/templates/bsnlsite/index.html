@@ -1,35 +1,12 @@
-{% if latest_bsnlsitedb_list %}
-   <form method='GET' action''>
-   </form>
-   <input type='text' name='q' placeholder="Search this site"/>
-   <input type='submit' value='Search'/>
-    <ul>
-    {% for question in latest_bsnlsitedb_list %}
-
-    <!-- <table cellpadding="2"><tr><td bgcolor="blue">
-    <table border="1" frame="void" cellpadding="10" bgcolor="white"> -->
-    <table border="1">
-    <tr>
-        <td><li><a href="/bsnlsite/{{ question.id }}/">{{ question.sitename }}</a></li></td>
-        <td>{{ question.btstype }}</td>
-        <td>{{ question.btsmake }}</td>
-        <td>{{ question.battery }}</td>
-        <td>{{ question.batterytype }}</td>
-        <td>{{ question.powerplant }}</td>
-        <td>{{ question.powerplantmodule }}</td>
-        <td>{{ question.ac1make }}</td>
-        <td>{{ question.ac1capacity }}</td>
-        <td>{{ question.ac2make }}</td>
-        <td>{{ question.ac2capacity }}</td>
-        <td>{{ question.ac3make }}</td>
-        <td>{{ question.ac3capacity }}</td>
-        <td>{{ question.ac4make }}</td>
-        <td>{{ question.ac4capacity }}</td>
-    </tr>
-  </table>
-  </table>
-  {% endfor %}
-    </ul>
-{% else %}
-    <p>No data is available in BSNL database.</p>
-{% endif %}
+{% load render_table from django_tables2 %}
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static
+'ticket/static/css/screen.css' %}" />
+    </head>
+    <body>
+        {% render_table latest_bsnlsitedb_list %}
+    </body>
+</html>
