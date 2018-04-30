@@ -14,8 +14,10 @@ from django.views.generic.list import BaseListView
 from django.db.models import Q
 # from .models import BlogSearchListView
 
-#def index(request):
-#    return HttpResponse("Welcome to BSNL site for entry form.")
+def home(request):
+    template = loader.get_template('bsnlsite/home.html')
+    return HttpResponse(template.render())
+    #    return HttpResponse("Welcome to BSNL site for entry form.")
 def index(request,search_term=None):
     latest_bsnlsitedb_list = bsnlsitedb.objects.all()
     template = loader.get_template('bsnlsite/index.html')

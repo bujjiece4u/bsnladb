@@ -4,7 +4,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.home, name='home'),
+    url(r'^table/$', views.index, name='index'),
     # ex: /bsnlsite/5/
     path('<int:bsnlsitedb_id>/', views.detail, name='detail'),
     # ex: /polls/5/results/
