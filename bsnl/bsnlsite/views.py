@@ -65,12 +65,16 @@ def post_new(request):
     # if form.is_valid():
     #     form.save()
     #     return redirect('next_view')
+    # args = {}
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
+        else:
+            print(form.errors)
     else:
         form = PostForm()
+        # args['form'] = form
     return render(request, 'bsnlsite/post_edit.html', {'form': form})
 
 def output_table(request):
