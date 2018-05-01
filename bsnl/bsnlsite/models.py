@@ -33,7 +33,7 @@ ACCAPACITY_CHOICES =(
 
 )
 class bsnlsitedb(models.Model):
-    sitename = models.CharField(max_length=200)
+    sitename = models.CharField(max_length=200,unique=True)
     btstype  = models.CharField(max_length=8,choices=BTSTYPE_CHOICES,default='2G')
     btsmake  = models.CharField(max_length=200)
     battery  = models.CharField(max_length=200)
