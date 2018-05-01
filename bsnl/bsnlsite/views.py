@@ -70,6 +70,9 @@ def post_new(request):
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
+            form = PostForm()
+            success = True
+            print("form accepted")
         else:
             print(form.errors)
     else:
