@@ -22,6 +22,8 @@ class PostForm(forms.ModelForm):
                   'ac3capacity',
                   'ac4make',
                   'ac4capacity',
+                  'ac5make',
+                  'ac5capacity',
                   )
 
 class ItemSearchForm(SearchForm):

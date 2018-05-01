@@ -2,8 +2,51 @@
 
 {% block content %}
     <!-- <h4>New Entry</h4> -->
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
+      <form method="POST" class="post-form">{% csrf_token %}
+        <table border="1">
+      {% for field in form %}
+                  {{ field.label }} {{ field }}
+                  <!-- {% if forloop.counter|divisibleby:"2" %}
+                      <br>
+                  {% endif %} -->
+                  {% if field.label == "Sitename" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Btsmake" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Batterytype" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Powerplantmodule" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Ac1capacity" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Ac2capacity" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Ac3capacity" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Ac4capacity" %}
+                      <br>
+                      <br>
+                  {% endif %}
+                  {% if field.label == "Ac5capacity" %}
+                      <br>
+                      <br>
+                  {% endif %}
+              {% endfor %}
+            </table>
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
